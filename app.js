@@ -36,7 +36,7 @@ app.get("/results", async function(req, res){
 
 
 //Returns all data from the Pixabay API as JSON format
-function getImages(keyword, orientation){
+function getImagess(keyword, orientation){
     
     
     return new Promise( function(resolve, reject){
@@ -63,6 +63,38 @@ function getImages(keyword, orientation){
     
 }
 
+
+function getImages(keyword, orientation){
+    
+    
+    return new Promise( function(resolve, reject){
+        request('https://api.nasa.gov/planetary/earth/assets?lon=100.75&lat=1.5&date=2014-02-01&dim=0.15&api_key=DEMO_KEY',
+                 function (error, response, body) {
+    
+            if (!error && response.statusCode == 200  ) { //no issues in the request
+                
+                 let parsedData = JSON.parse(body); //converts string to JSON
+                 
+                 resolve(parsedData);
+                
+                
+            } else {
+                reject(error);
+                console.log(response.statusCode);
+                console.log(error);
+            }
+    
+          });//request
+   
+    });
+    
+}
+
+
+
+
+
+https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server
 app.listen(process.env.PORT, process.env.IP, function(){
