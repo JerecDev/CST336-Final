@@ -73,9 +73,9 @@ function getImages(keyword, orientation){
     
             if (!error && response.statusCode == 200  ) { //no issues in the request
                 
-                 let parsedData = JSON.parse(body); //converts string to JSON
+                 //let parsedData = JSON.parse(body); //converts string to JSON
                  
-                 resolve(parsedData);
+                 resolve(body);
                 
                 
             } else {
