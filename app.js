@@ -68,7 +68,7 @@ function getImages(keyword, orientation){
     
     
     return new Promise( function(resolve, reject){
-        request('https://api.nasa.gov/planetary/earth/assets?lon=100.75&lat=1.5&date=2014-02-01&dim=0.15&api_key=DEMO_KEY',
+        request('https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY',
                  function (error, response, body) {
     
             if (!error && response.statusCode == 200  ) { //no issues in the request
