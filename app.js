@@ -4,16 +4,12 @@ app.set("view engine", "ejs");
 app.use(express.static("css"));
 app.use(express.static("public"));
 
-var firstImgs = ["sand", "mountains", "landscapes", "stuff", "blocks", "chairs", "interior", "crocodile", "alligator", "chevrolet", "movie", "theatre"];
-
-
 const request = require('request');
 
 //routes
 app.get("/", async function(req, res){
     
- let firstImg = Math.floor(Math.random() * 11);   
- let parsedData = await getImages(firstImgs[firstImg]);
+ let parsedData = await getImages();
  
  console.dir("parsedData: " + parsedData); //displays content of the object
     
@@ -28,7 +24,7 @@ app.get("/results", async function(req, res){
     
     let orie = req.query.orientation;
     
-    let parsedData = await getImages(keyword, orie);
+    let parsedData = await getImages();
 
     res.render("results", {"images":parsedData});
     
@@ -64,18 +60,18 @@ function getImagess(keyword, orientation){
 }
 
 
-function getImages(keyword, orientation){
+function getImages(){
     
     
     return new Promise( function(resolve, reject){
-        request('https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY',
+        request('https://api.nasa.gov/planetary/earth/assets?lon=100.75&lat=1.5&date=2014-02-01&dim=0.15&api_key=DEMO_KEY',
                  function (error, response, body) {
     
             if (!error && response.statusCode == 200  ) { //no issues in the request
                 
-                 //let parsedData = JSON.parse(body); //converts string to JSON
+                 let parsedData = JSON.parse(body); //converts string to JSON
                  
-                 resolve(body);
+                 resolve(parsedData);
                 
                 
             } else {
