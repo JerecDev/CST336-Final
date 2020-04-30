@@ -24,7 +24,7 @@ body {
 }
 .header {
 
-  position: fixed;
+  position: sticky;
   background: black;
   align-content: center;
   width: -webkit-fill-available;
