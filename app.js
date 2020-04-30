@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+const path = require('path');
 app.set("view engine", "ejs");
-app.use(express.static("css"));
-app.use(express.static("public"));
+app.use(express.static("./css"));
+// app.use(express.static("./imgs"));
+app.use("/imgs", express.static(path.join(__dirname, 'imgs')));
 
 const request = require('request');
 
@@ -90,7 +92,7 @@ function getImages(){
 
 
 
-https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
+// https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server
 //I used port=3000 to use it on my local machine

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
     <%- include('partials/header') -%>
@@ -6,21 +5,19 @@
     <body>
         <div class="header">
             <h1> NASA Image Search </h1>
-            
+            <img src="https://www.nasa.gov/sites/default/files/styles/side_image/public/thumbnails/image/nasa-logo-web-rgb.png?itok=uDhKSTb1" width="200" height="100" alt="Nasa Logo">
             <hr color="white">
             
             <!-- <hr color="white"> -->
         </div>
         <br><br>
-        
+
         <div class="content">
             <form action="/results" method="GET">
                 <br>
-                
                 Latitude: <input type="text" name="keyword">
                 Longitude: <input type="text" name="keyword">
                 <br><br>
-                
                 <!-- Date Dropdown -->
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date">
