@@ -93,6 +93,9 @@ function getImages(){
 https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server
+//I used port=3000 to use it on my local machine
+// process.env.PORT
 app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("PORT > " + process.env.PORT );
     console.log("Express server is running...");
 })

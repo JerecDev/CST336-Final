@@ -1,22 +1,36 @@
+
 <!DOCTYPE html>
 <html>
     <%- include('partials/header') -%>
+    
     <body>
-
-        <h1> Pixabay Search (Express Version) </h1>
-        
-        <form action="/results" method="GET">
+        <div class="header">
+            <h1> NASA Image Search </h1>
             
-            Keyword: <input type="text" name="keyword">
-            Orientation: 
-            <select id="orientation" name="orientation">
-              <option value="horizontal">Horizontal</option>
-              <option value="vertical">Vertical</option>
-            </select>
-            <br><br>
-            <button> Search! </button> 
-        </form> <br><br>
+            <hr color="white">
+            
+            <!-- <hr color="white"> -->
+        </div>
+        <br><br>
+        
+        <div class="content">
+            <form action="/results" method="GET">
+                <br>
+                
+                Latitude: <input type="text" name="keyword">
+                Longitude: <input type="text" name="keyword">
+                <br><br>
+                
+                <!-- Date Dropdown -->
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date">
 
+                <br><br>
+                <button> Search! </button> 
+                <br><br>
+            </form> <br><br>
+        </div>
+        <br>
         <img src='<%= images.url %>' width='1000'>
         <br><br>
 
