@@ -63,9 +63,7 @@ function getImagess(keyword, orientation){
 }
 
 
-function getImages(){
-    
-    
+function getImages(){   
     return new Promise( function(resolve, reject){
         request('https://api.nasa.gov/planetary/earth/assets?lon=100.75&lat=1.5&date=2020-04-01&dim=0.15&api_key=l1gzVpZhiMT8HTOAp6hbolyk8AgfjqvTKQZdxlLa',
                  function (error, response, body) {
@@ -88,17 +86,12 @@ function getImages(){
     });
     
 }
-
-
-
-
-
 // https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server
 //I used port=3000 to use it on my local machine
 // process.env.PORT
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, process.env.IP, function(){
     console.log("PORT > " + process.env.PORT );
     console.log("Express server is running...");
 })

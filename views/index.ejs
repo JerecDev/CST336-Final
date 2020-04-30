@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
     <%- include('partials/header') -%>
-    
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDate").max;
+            document.getElementById("demo").innerHTML = x;
+        }
+    </script>
     <body>
         <div class="header">
             <h1> NASA Image Search </h1>
@@ -10,8 +15,7 @@
             
             <!-- <hr color="white"> -->
         </div>
-        <br><br>
-
+        
         <div class="content">
             <form action="/results" method="GET">
                 <br>
@@ -20,7 +24,7 @@
                 <br><br>
                 <!-- Date Dropdown -->
                 <label for="date">Date:</label>
-                <input type="date" id="date" name="date">
+                <input type="date" id="date" name="date" min="1980-01-01" max="2020-12-20">
 
                 <br><br>
                 <button> Search! </button> 
@@ -32,4 +36,5 @@
         <br><br>
 
     </body>
+
 </html>
