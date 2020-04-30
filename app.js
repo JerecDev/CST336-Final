@@ -91,7 +91,7 @@ function getImages(){
 //starting server
 //I used port=3000 to use it on my local machine
 // process.env.PORT
-app.listen(3000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
     console.log("PORT > " + process.env.PORT );
     console.log("Express server is running...");
 })
