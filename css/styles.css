@@ -10,14 +10,16 @@ h1 {
 }
 body {
   text-align: center;
+
 }
 form{
   /* background-color: gray; */
   color: white;
+    margin-top: 150px;
 }
 
 body {
-  margin: 0;
+  margin: 2;
   font-family: Arial, Helvetica, sans-serif;
 }
 .header {
