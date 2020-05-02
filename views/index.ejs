@@ -2,10 +2,13 @@
 <html>
     <%- include('partials/header') -%>
     <script>
+        
         function myFunction() {
             var x = document.getElementById("myDate").max;
             document.getElementById("demo").innerHTML = x;
         }
+
+
     </script>
     <body>
         <div class="header">
@@ -19,13 +22,13 @@
         <div class="content">
             <form action="/results" method="GET">
                 <br>
-                Latitude: <input type="text" name="keyword">
-                Longitude: <input type="text" name="keyword">
+                Latitude: <input type="text" name="latitude">
+                Longitude: <input type="text" name="longitude">
                 <br><br>
                 <!-- Date Dropdown -->
                 <label for="date">Date:</label>
                 <input type="date" id="date" name="date" min="1980-01-01" max="2020-05-20">
-
+                <!-- Max is just set to the end of May -->
                 <br><br>
                 <button> Search! </button> 
                 <br><br>

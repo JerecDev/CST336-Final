@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const path = require('path');
 app.set("view engine", "ejs");
-// app.use(express.static("./css"));
-// app.use(express.static("./imgs"));
+
 app.use("/imgs", express.static(path.join(__dirname, 'imgs')));
 app.use("/css", express.static(path.join(__dirname, 'css')));
 
@@ -21,46 +20,44 @@ app.get("/", async function(req, res){
             
 }); //root route
 
-
 app.get("/results", async function(req, res){
-    let keyword = req.query.keyword; //gets the value that the user typed in the form using the GET method
-    
-    let orie = req.query.orientation;
-    
-    let parsedData = await getImages();
+    let latitude = req.query.latitude;
+    let longitude = req.query.longitude;
+    let date = req.query.date;
 
-    res.render("results", {"images":parsedData});
+    res.render("results", {"image": `?lat=${latitude}&lon=${longitude}&date=${date}&dim=.15&api_key=DEMO_KEY`});
     
 });//results route
 
 
-//Returns all data from the Pixabay API as JSON format
-function getImagess(keyword, orientation){
-    
-    
-    return new Promise( function(resolve, reject){
-        request('https://pixabay.com/api/?key=5589438-47a0bca778bf23fc2e8c5bf3e&q=' + keyword
-        + '&orientation=' + orientation,
-                 function (error, response, body) {
-    
-            if (!error && response.statusCode == 200  ) { //no issues in the request
-                
-                 let parsedData = JSON.parse(body); //converts string to JSON
-                 
-                 resolve(parsedData);
-                
-                
-            } else {
-                reject(error);
-                console.log(response.statusCode);
-                console.log(error);
-            }
-    
-          });//request
-   
+app.get("/nasa", async function(req, res) {
+    let lat = req.query.lat;
+    let long = req.query.long;
+    let date = req.query.date;
+
+    var req_settings = {
+        "url": "https://api.nasa.gov/planetary/earth/imagery",
+        "qs": {
+            "lat": lat,
+            "lon": long,
+            "dim": .1,
+            "api_key": "l1gzVpZhiMT8HTOAp6hbolyk8AgfjqvTKQZdxlLa"
+        },
+        method: 'GET',
+        encoding: null
+    }
+
+    request(req_settings, function (err, resp, body) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        res.set('Content-Type', 'image/png');
+        res.send(body);
     });
-    
-}
+});
+
+var API_KEY = 'l1gzVpZhiMT8HTOAp6hbolyk8AgfjqvTKQZdxlLa';
 
 
 function getImages(){   
@@ -86,6 +83,9 @@ function getImages(){
     });
     
 }
+
+
+
 // https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server
