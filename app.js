@@ -1,18 +1,18 @@
 const express = require("express");
-const mysql = require('mysql');
+//const mysql = require('mysql');
 const app = express();
 const path = require('path');
 app.set("view engine", "ejs");
 
 //*********************************************************************
 /* Configure MySQL DBMS */
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'mart',
-    password: 'mart',
-    database: 'users'
-});
-connection.connect();
+//const connection = mysql.createConnection({
+   // host: 'localhost',
+    //user: 'mart',
+   // password: 'mart',
+    //database: 'users'
+//});
+//connection.connect();
 //***********************************************************************
 app.use("/imgs", express.static(path.join(__dirname, 'imgs')));
 app.use("/css", express.static(path.join(__dirname, 'css')));
