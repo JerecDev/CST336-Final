@@ -1,8 +1,19 @@
 const express = require("express");
+//const mysql = require('mysql');
 const app = express();
 const path = require('path');
 app.set("view engine", "ejs");
 
+//*********************************************************************
+/* Configure MySQL DBMS */
+//const connection = mysql.createConnection({
+   // host: 'localhost',
+   // user: 'mart',
+   // password: 'mart',
+   // database: 'users'
+//});
+//connection.connect();
+//***********************************************************************
 app.use("/imgs", express.static(path.join(__dirname, 'imgs')));
 app.use("/css", express.static(path.join(__dirname, 'css')));
 
@@ -29,6 +40,15 @@ app.get("/results", async function(req, res){
     
 });//results route
 
+/* Register Routes */
+app.get('/register', function(req, res){
+    res.render('register');
+});
+
+/*Login Routes */
+app.get('/login', function(req, res){
+    res.render('login');
+});
 
 app.get("/nasa", async function(req, res) {
     let lat = req.query.lat;
