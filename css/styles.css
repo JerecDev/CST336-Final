@@ -33,7 +33,7 @@ body {
 .container{
  height: 100px;
  margin: auto;
- position: static;
+ position: static; 
 }
 
 #content {
