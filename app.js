@@ -31,12 +31,13 @@ app.get("/", async function(req, res){
             
 }); //root route
 
+
 app.get("/results", async function(req, res){
     let latitude = req.query.latitude;
     let longitude = req.query.longitude;
     let date = req.query.date;
 
-    res.render("results", {"image": `?lat=${latitude}&lon=${longitude}&date=${date}&dim=.15&api_key=DEMO_KEY`});
+    res.render("results", {"image": `?lat=${latitude}&lon=${longitude}&date=${date}&cloud_score=FALSE&dim=.15&api_key=${API_KEY}`});
     
 });//results route
 
@@ -103,9 +104,6 @@ function getImages(){
     });
     
 }
-
-
-
 // https://api.nasa.gov/planetary/earth/imagery?lon=-95.33&lat=29.78&date=2018-01-01&dim=0.15&api_key=DEMO_KEY
 
 //starting server

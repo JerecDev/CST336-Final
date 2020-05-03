@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <%- include('partials/header') -%>
-    <body>
+<%- include('partials/header') -%>
 
-        
-       <style>
-           body {
-               display: flex;
-               justify-content: center;
-               align-items: center;
-               height: 100%;
-               width: 100%;
-               position: absolute;
-           }
-           img {
-               width: 75%;
-               border: 5px solid white;
-           }
-       </style>
+<body>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+        img {
+            width: 75%;
+            border: 5px solid white;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+
+    <div class="container">
        
-        <img src="https://api.nasa.gov/planetary/earth/imagery<%= image %>" >
+        <img src="https://api.nasa.gov/planetary/earth/imagery<%= image %>">
         
 
-    </body>
+        <button class='btn btn-info' onclick='location.href="/";'>Search Again</button>
+       
+    </div>
+
+</body>
+
 </html>
