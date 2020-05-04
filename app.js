@@ -8,9 +8,9 @@ app.set("view engine", "ejs");
 /* Configure MySQL DBMS */
 //const connection = mysql.createConnection({
    // host: 'localhost',
-   // user: 'mart',
+    //user: 'mart',
    // password: 'mart',
-   // database: 'users'
+    //database: 'users'
 //});
 //connection.connect();
 //***********************************************************************
@@ -21,7 +21,7 @@ const request = require('request');
 
 //routes
 app.get("/", async function(req, res){
-    
+
  let parsedData = await getImages();
  
  console.dir("parsedData: " + parsedData); //displays content of the object
