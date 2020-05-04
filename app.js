@@ -62,6 +62,7 @@ app.get("/nasa", async function(req, res) {
             "lat": lat,
             "lon": long,
             "dim": .1,
+            "date": date,
             "api_key": "l1gzVpZhiMT8HTOAp6hbolyk8AgfjqvTKQZdxlLa"
         },
         method: 'GET',
