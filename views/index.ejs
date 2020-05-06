@@ -13,6 +13,7 @@
 </script>
 
 <body>
+
     <div class="header">
         <h1> NASA Image Search </h1>
         <img src="https://www.nasa.gov/sites/default/files/styles/side_image/public/thumbnails/image/nasa-logo-web-rgb.png?itok=uDhKSTb1"
@@ -22,8 +23,13 @@
         <!-- <hr color="white"> -->
     </div>
 
-    <a class='btn-primary' href="/login">Login</a>
-    <a class='btn-primary' href='/register'>Register</a>
+
+    <% if(authed){ %>
+        <a class='btn-primary' href="/welcome">Account</a>
+      <% } else{ %>  
+        <a class='btn-primary' href="/login">Login</a>
+        <a class='btn-primary' href='/register'>Register</a>
+     <% } %>
 
     <div class="content">
         <form action="/results" method="GET">

@@ -3,8 +3,88 @@
 <div class='container'>
         <a class='btn-primary' href='/'>Main Page</a>
 		<a class='btn btn-danger' href='/logout'>Logout</a>
+		<a class='btn btn-danger' id="delete-button" href='/delete'>Delete Account</a>
 	</div>
 	
 	<h1>Welcome <%=user%> </h1>
 	
+	<style>
+		.table-box {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	
+		.history-table {
+			background: white;
+		}
+	
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	
+		th,
+		td {
+			padding: 15px;
+			text-align: left;
+		}
+	</style>
+	
+	<div class="table-box">
+		<table class="history-table">
+			<tr>
+				<th>Date</th>
+				<th>Query</th>
+				<th>Go</th>
+			</tr>
+			<% for(var i = 0; i < queries.length; i++) { %>
+			<tr>
+				<td><%= queries[i].sub_date.toISOString() %></td>
+				<td><%= queries[i].latitude %> <%= queries[i].longitude %> <%= queries[i].date %> </td>
+				<td>
+					<button onclick="location.href='/results?latitude=<%= queries[i].latitude %>&longitude=<%= queries[i].longitude %>&date=<%= queries[i].date %>';">Go</button>
+				</td>
+			</tr>
+			<% } %>
+	
+		</table>
+	</div>
+
+	<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="deleteAccountLabel">Are you sure?</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+			  Once you delete your account it will be impossible to restore your data!  Please be sure that is what you want to do.
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			  <button type="button" id="deleteAccountConfirmButton" class="btn btn-danger">Delete</button>
+			</div>
+		  </div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#delete-button").on("click", function (e) {
+				e.preventDefault();
+				$("#deleteAccountModal").modal("show");
+			});
+			$("#deleteAccountConfirmButton").on("click", function(e) {
+				window.location.href = "/delete";
+			});
+		});
+	</script>
 </div>

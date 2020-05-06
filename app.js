@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const path = require('path');
+const bcryptjs = require('bcryptjs');
 //*************************************************
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -52,6 +53,35 @@ function checkPassword(password, hash){
        }); 
     });
 }
+
+function deleteUser(username) {
+    return new Promise((resolve, reject) => {
+        let stmt = `DELETE FROM users WHERE username='${username}';`;
+        connection.query(stmt, function(error, results) {
+            if (error) throw error;
+            resolve();
+        });
+    });
+}
+
+function logQuery(username, latitude, longitude, date) {
+    let stmt = `INSERT INTO queries (username, sub_date, latitude, longitude, date)
+     VALUES ('${username}', ${connection.escape(new Date)}, ${latitude}, ${longitude}, '${date}')`;
+    console.log(stmt);
+    connection.query(stmt, function(error, results){
+        if (error) throw error;
+    });
+}
+
+function getQuerys(username) {
+    return new Promise((resolve, reject) => {
+        let stmt = `SELECT * FROM queries WHERE username='${username} ' ORDER BY sub_date DESC LIMIT 0, 20;`;
+        connection.query(stmt,function(error,results){
+            if (error) throw error;
+            resolve(results);
+        });
+    });
+}
 //**********************************************************************
 
 app.use("/imgs", express.static(path.join(__dirname, 'imgs')));
@@ -66,7 +96,10 @@ app.get("/", async function(req, res){
  
  console.dir("parsedData: " + parsedData); //displays content of the object
     
- res.render("index", {"images":parsedData});
+ res.render("index", {
+    "images":parsedData, 
+    "authed": (req.session.authenticated) ? true : false
+});
 
             
 }); //root route
@@ -76,6 +109,10 @@ app.get("/results", async function(req, res){
     let latitude = req.query.latitude;
     let longitude = req.query.longitude;
     let date = req.query.date;
+
+    if (req.session.authenticated) {
+        logQuery(req.session.user, latitude, longitude, date);
+    }
 
     res.render("results", {"image": `?lat=${latitude}&lon=${longitude}&date=${date}&cloud_score=FALSE&dim=.15&api_key=${API_KEY}`});
     
@@ -125,8 +162,18 @@ app.get('/logout', function(req, res){
 });
 
 /* Welcome Route */
-app.get('/welcome', isAuthenticated, function(req, res){
-   res.render('welcome', {user: req.session.user}); 
+app.get('/welcome', isAuthenticated, async function(req, res){
+    let queries = await getQuerys(req.session.user);
+
+    res.render('welcome', {user: req.session.user, queries: queries}); 
+});
+
+/* Delete Route */
+app.get('/delete', isAuthenticated,  async function(req, res) {
+    let username = req.session.user;
+    await deleteUser(username);
+    req.session.destroy();
+    res.redirect('/');
 });
 
 //************************************************
