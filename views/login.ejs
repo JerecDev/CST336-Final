@@ -9,6 +9,10 @@
 	    <a class='btn-primary' href='/'>Main Page</a>
 	    <br></br>
 		<h1> User Login </h1>
+		
+		<%if(typeof error != 'undefined' && error){%>
+        <h6 style='color: red;'> Incorrect login </h6>
+	<%}%>
 	
 	<form action='/login' method='POST'>
 		<div class='form-group row'>
@@ -26,7 +30,7 @@
 		<div class='form-group row'>
 			<div class='col-sm-4'></div>
 			<div class='col-sm-4'>
-				<a class='btn-primary' href=''>Login</a>
+				<button class='btn-primary'>Login</button>
 			</div>
 			<div class='col-sm-4'></div>
 		</div>
