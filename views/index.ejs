@@ -1,46 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <%- include('partials/header') -%>
+<%- include('partials/header') -%>
+<script>
+
+    function myFunction() {
+        var x = document.getElementById("myDate").max;
+        document.getElementById("demo").innerHTML = x;
+    }
+
+
+
+</script>
+
+<body>
+    <div class="header">
+        <h1> NASA Image Search </h1>
+        <img src="https://www.nasa.gov/sites/default/files/styles/side_image/public/thumbnails/image/nasa-logo-web-rgb.png?itok=uDhKSTb1"
+            width="200" height="100" alt="Nasa Logo">
+        <hr color="white">
+
+        <!-- <hr color="white"> -->
+    </div>
+
+    <a class='btn-primary' href="/login">Login</a>
+    <a class='btn-primary' href='/register'>Register</a>
+
+    <div class="content">
+        <form action="/results" method="GET">
+            <br>
+            Latitude: <input type="text" name="latitude">
+            Longitude: <input type="text" name="longitude">
+            <br><br>
+            <!-- Date Dropdown -->
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" min="1980-01-01" max="2020-05-20">
+            <!-- Max is just set to the end of May -->
+            <br><br>
+            <button> Search! </button>
+            <br><br>
+        </form> <br><br>
+    </div>
+    <br>
+
+
+    <img id="preview" width='600'>
+    <br><br>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"
+        integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
     <script>
-        
-        function myFunction() {
-            var x = document.getElementById("myDate").max;
-            document.getElementById("demo").innerHTML = x;
-        }
-
-
+        $(document).ready(function () {
+            $.ajax({
+                url: "/nasa",
+                data: {
+                    lat: "1.5",
+                    long: "100.75",
+                    date: "2020-04-01"
+                },
+                cache: false,
+                xhr: function () {// Seems like the only way to get access to the xhr object
+                    var xhr = new XMLHttpRequest();
+                    xhr.responseType = 'blob'
+                    return xhr;
+                },
+                success: function (data) {
+                    console.log(data);
+                    let img = $("#preview");
+                    var url = window.URL || window.webkitURL;
+                    img.attr('src', url.createObjectURL(data));
+                }
+            });
+        });
     </script>
-    <body>
-        <div class="header">
-            <h1> NASA Image Search </h1>
-            <img src="https://www.nasa.gov/sites/default/files/styles/side_image/public/thumbnails/image/nasa-logo-web-rgb.png?itok=uDhKSTb1" width="200" height="100" alt="Nasa Logo">
-            <hr color="white">
-            
-            <!-- <hr color="white"> -->
-        </div>
-        
-        	<a class='btn-primary' href="/login">Login</a>
-        	<a class='btn-primary' href='/register'>Register</a>
-        
-        <div class="content">
-            <form action="/results" method="GET">
-                <br>
-                Latitude: <input type="text" name="latitude">
-                Longitude: <input type="text" name="longitude">
-                <br><br>
-                <!-- Date Dropdown -->
-                <label for="date">Date:</label>
-                <input type="date" id="date" name="date" min="1980-01-01" max="2020-05-20">
-                <!-- Max is just set to the end of May -->
-                <br><br>
-                <button> Search! </button> 
-                <br><br>
-            </form> <br><br>
-        </div>
-        <br>
-        <img src='<%= images.url %>' width='600'>
-        <br><br>
 
-    </body>
+</body>
 
 </html>
