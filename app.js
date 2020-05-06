@@ -1,11 +1,11 @@
 const express = require("express");
 const mysql = require('mysql');
-const bcrypt = require('bcrypt');
+
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const path = require('path');
-const bcryptjs = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 //*************************************************
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
